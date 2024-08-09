@@ -2,7 +2,7 @@
 FROM python:3.11-slim
 
 # Defina o diretório de trabalho dentro do contêiner
-WORKDIR /app
+WORKDIR /src
 
 # Copie o arquivo de requisitos para o contêiner
 COPY requirements.txt .
