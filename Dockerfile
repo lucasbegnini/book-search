@@ -1,9 +1,6 @@
 # Use uma imagem base oficial do Python
 FROM python:3.11-slim
 
-# Defina o diretório de trabalho dentro do contêiner
-WORKDIR /src
-
 # Copie o arquivo de requisitos para o contêiner
 COPY requirements.txt .
 
@@ -12,6 +9,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copie o código da aplicação para o diretório de trabalho do contêiner
 COPY . .
+
+# Defina o diretório de trabalho dentro do contêiner
+#WORKDIR /src
 
 # Exponha a porta que o Django irá usar
 EXPOSE 8000

@@ -24,12 +24,12 @@ down: ## Stop and remove the docker container image.
 .PHONY: migrate
 migrate: ## Run django migrate.
 	@echo "Migrating..."
-	docker compose run --rm web sh -c "python ./src/manage.py makemigrations && python ./src/manage.py migrate"
+	docker compose run --build --rm web sh -c "python ./src/manage.py makemigrations && python ./src/manage.py migrate"
 
 .PHONY: makemigrations
 makemigrations: ## Run django makemigrations.
 	@echo "Makemigrations..."
-	docker compose run --rm web sh -c "python ./src/manage.py makemigrations"
+	docker compose run --build --rm web sh -c "python ./src/manage.py makemigrations"
 
 .PHONY: psql
 psql: ## Access the postgres command line interface.
