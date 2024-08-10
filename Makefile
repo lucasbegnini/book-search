@@ -5,9 +5,9 @@ help: ## Command help.
 	@egrep -h '\s##\s' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
 .PHONY: test
-test: clean ## Runs tests.
+test: ## Runs tests.
 	# roda unit test and integratoin-test
-	docker compose run --rm web sh -c "python ./src/manage.py test src --noinput"
+	docker compose run --build --rm web sh -c "python ./src/manage.py test src --noinput"
 
 .PHONY: coverage
 coverage: lint ## Runs pytest witj coverage parameters.

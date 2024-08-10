@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import RotaProtegida
+from .views.csv_view import CSVView
 
 urlpatterns = [
-    path('protegido/', RotaProtegida.as_view(), name='rota_protegida'),
+    path("csv/upload/", CSVView.as_view(), name="csv_view"),
 ]
