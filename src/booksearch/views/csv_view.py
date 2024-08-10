@@ -7,7 +7,7 @@ from rest_framework import status
 
 
 class CSVView(APIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
         serializer = CSVUploadSerializer(data=request.data)
