@@ -7,7 +7,7 @@ help: ## Command help.
 .PHONY: test
 test: ## Runs tests.
 	# roda unit test and integratoin-test
-	docker compose run --build --rm web sh -c "python ./src/manage.py test src --noinput"
+	docker compose run --build --rm web sh -c "python ./src/manage.py makemigrations && python ./src/manage.py migrate && python ./src/manage.py test src --noinput"
 
 .PHONY: coverage
 coverage: lint ## Runs pytest witj coverage parameters.
@@ -15,7 +15,7 @@ coverage: lint ## Runs pytest witj coverage parameters.
 
 .PHONY: up
 up: ## Start the localstack (fake cloud local environment).
-	@docker compose up -d
+	@docker compose up --build
 
 .PHONY: down
 down: ## Stop and remove the docker container image.
