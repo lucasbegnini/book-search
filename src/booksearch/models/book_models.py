@@ -8,10 +8,10 @@ class Book(models.Model):
     work_id = models.IntegerField(null=True, blank=True)
     books_count = models.IntegerField(null=True, blank=True)
     isbn = models.CharField(
-        max_length=13, null=True, blank=True
+        max_length=20, null=True, blank=True
     )  # CharField para ISBN com letras
     isbn13 = models.CharField(
-        max_length=13, null=True, blank=True
+        max_length=20, null=True, blank=True
     )  # CharField para ISBN13
     authors = models.CharField(max_length=255, null=True, blank=True)
     original_publication_year = models.IntegerField(null=True, blank=True)
