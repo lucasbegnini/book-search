@@ -23,6 +23,32 @@ cd book-search
 #### 1.1 Se for a primeira vez que estiver usando, execute primeiro o script:
 ```
     $ make migrate
+    $ make up
+```
+Entre na maquina docker gerada e execute o comando de criar superusuário.
+```
+    $ docker exec -ti book-search-web-1 bash
+    $ python src/manage.py createsuperuser
+```
+Com o email e senha inseridos entre no sistema de admin:
+[Admin](http://localhost:8000/admin/)
+
+Lá você terá acesso a criação de usuários, inserção e edição de livros manualmente.
+
+Você pode criar novos usuários também via URL:
+```
+curl --location 'http://localhost:8000/api/register/' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIzMzk5MDY4LCJpYXQiOjE3MjMzOTg3NjgsImp0aSI6IjExYWFlNWUzZTAwNDQ4ZGI5ZTg1ZmUyZjY3NThjODUyIiwidXNlcl9pZCI6MX0.RzuAFmu7E1jCknHA2BrE3EeEV6OIkJlgLQvcsrVpfjU' \
+--data-raw '
+{
+    "username": "novo_usuario",
+    "password": "senha_segura123",
+    "email": "novo_usuario@example.com",
+    "first_name": "Nome",
+    "last_name": "Sobrenome"
+}'
+
 ```
 ### Para executar você pode rodar
 ```
@@ -51,8 +77,6 @@ curl --location 'http://localhost:8000/api/token/' \
     "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIzNDYzMTU5LCJpYXQiOjE3MjM0NjI4NTksImp0aSI6ImQwNzQ0M2E4Y2E5MTQ0OGE5NWMyNWIwYjM0NjUzZWZhIiwidXNlcl9pZCI6MX0.dEs5A605NGw38JjxcJ--P3IRsHFoZgdTjr0iC-pW1Hg"
 }
 ```
-### Docs
-[Link para documentação](https://documenter.getpostman.com/view/4020852/2sA3s4kVcj)
 
 ### Processamento de CSV em massa
 #### Enviar o CSV
@@ -96,3 +120,6 @@ curl --location 'http://localhost:8000/api/books/?isbn=439554934' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIzMzk5OTg0LCJpYXQiOjE3MjMzOTk2ODQsImp0aSI6ImE1YWQzZDY1ZjAzZDRmYTg5ZGI2YWRiMDZjOGI3YWQ5IiwidXNlcl9pZCI6MX0.AuRh-NXR8QUqN_LShtevnLQmkXOOy_75hKcz2rjF1ZU' \
 --data ''
 ```
+
+### Docs
+[Link para documentação](https://documenter.getpostman.com/view/4020852/2sA3s4kVcj)
