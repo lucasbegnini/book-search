@@ -55,15 +55,44 @@ curl --location 'http://localhost:8000/api/token/' \
 [Link para documentação](https://documenter.getpostman.com/view/4020852/2sA3s4kVcj)
 
 ### Processamento de CSV em massa
-# Enviar o CSV
+#### Enviar o CSV
 Para fazer um envio em massa você acessa o endpoint para enviar o csv
 ```
 curl --location 'http://localhost:8000/api/csv/upload/' \
 --header 'Content-Type: application/json' \
---data '{"csv_file": "data_csv"
+--data '{"csv_file": "data_csv" }
 ```
 O formato do CSV_FILE deve ser base64. O arquivo CSV deve ser convertido a Base64. 
 
 É preciso cadastrar em variavel de ambiente também as variáveis:
 SENDGRID_API_KEY = 'A variável da Key do Sendgrid'
 SENDGRID_EMAIL = 'Email para qual será enviado o email'
+
+### Fazer busca na API
+#### Fazer a busca de elementos já cadastrados
+Para fazer a busca de elementos dentro do sistema é possível fazer com o seguinte request:
+```
+curl --location 'http://localhost:8000/api/books/?isbn=141439661' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIzMzk5OTg0LCJpYXQiOjE3MjMzOTk2ODQsImp0aSI6ImE1YWQzZDY1ZjAzZDRmYTg5ZGI2YWRiMDZjOGI3YWQ5IiwidXNlcl9pZCI6MX0.AuRh-NXR8QUqN_LShtevnLQmkXOOy_75hKcz2rjF1ZU' \
+--data ''
+```
+Os seguintes campos são possíveis de serem buscados: Title, Authors and ISBN
+```
+curl --location 'http://localhost:8000/api/books/?title=Harry%20Potter' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIzMzk5OTg0LCJpYXQiOjE3MjMzOTk2ODQsImp0aSI6ImE1YWQzZDY1ZjAzZDRmYTg5ZGI2YWRiMDZjOGI3YWQ5IiwidXNlcl9pZCI6MX0.AuRh-NXR8QUqN_LShtevnLQmkXOOy_75hKcz2rjF1ZU' \
+--data ''
+```
+```
+curl --location 'http://localhost:8000/api/books/?authors=Jane%20Austen' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIzMzk5OTg0LCJpYXQiOjE3MjMzOTk2ODQsImp0aSI6ImE1YWQzZDY1ZjAzZDRmYTg5ZGI2YWRiMDZjOGI3YWQ5IiwidXNlcl9pZCI6MX0.AuRh-NXR8QUqN_LShtevnLQmkXOOy_75hKcz2rjF1ZU' \
+--data ''
+```
+```
+curl --location 'http://localhost:8000/api/books/?isbn=439554934' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIzMzk5OTg0LCJpYXQiOjE3MjMzOTk2ODQsImp0aSI6ImE1YWQzZDY1ZjAzZDRmYTg5ZGI2YWRiMDZjOGI3YWQ5IiwidXNlcl9pZCI6MX0.AuRh-NXR8QUqN_LShtevnLQmkXOOy_75hKcz2rjF1ZU' \
+--data ''
+```
