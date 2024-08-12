@@ -53,3 +53,17 @@ curl --location 'http://localhost:8000/api/token/' \
 ```
 ### Docs
 [Link para documentação](https://documenter.getpostman.com/view/4020852/2sA3s4kVcj)
+
+### Processamento de CSV em massa
+# Enviar o CSV
+Para fazer um envio em massa você acessa o endpoint para enviar o csv
+```
+curl --location 'http://localhost:8000/api/csv/upload/' \
+--header 'Content-Type: application/json' \
+--data '{"csv_file": "data_csv"
+```
+O formato do CSV_FILE deve ser base64. O arquivo CSV deve ser convertido a Base64. 
+
+É preciso cadastrar em variavel de ambiente também as variáveis:
+SENDGRID_API_KEY = 'A variável da Key do Sendgrid'
+SENDGRID_EMAIL = 'Email para qual será enviado o email'

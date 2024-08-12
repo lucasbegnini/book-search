@@ -2,6 +2,31 @@ from io import StringIO
 import csv
 import logging
 from booksearch.models import Book
+import sendgrid
+from sendgrid.helpers.mail import Mail
+from booksearch.models import Book
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY")
+SENDGRID_EMAIL = os.getenv("SENDGRID_EMAIL")
+
+
+def send_email(subject, content, recipient_email):
+    sg = sendgrid.SendGridAPIClient(api_key=SENDGRID_API_KEY)
+    message = Mail(
+        from_email="no-reply@yourdomain.com",
+        to_emails=recipient_email,
+        subject=subject,
+        html_content=content,
+    )
+    try:
+        response = sg.send(message)
+        logging.info(f"Email sent successfully: {response.status_code}")
+    except Exception as e:
+        logging.error(f"Error sending email: {e}")
 
 
 def process_csv_file(decoded_file):
@@ -191,6 +216,13 @@ def process_csv_file(decoded_file):
             ],
         )
         Book.objects.bulk_create(books_to_create)
+
+        send_email(
+            subject="CSV Processing Complete",
+            content=f"{len(books_to_create)} books created, {len(books_to_update)} books updated.",
+            recipient_email=SENDGRID_EMAIL,
+        )
+
     except Exception as e:
         logging.error(f"Error processing books: {e}")
         raise Exception("Error processing books")
