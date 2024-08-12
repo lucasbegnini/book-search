@@ -1,41 +1,41 @@
 # Book Search Application
 
-## Descrição
+## Description
 
-Este é um projeto Django para gerenciar e buscar informações sobre livros a partir de um arquivo CSV. O projeto inclui um backend desenvolvido com Django e Django REST Framework.
+This is a Django project to manage and search for book information from a CSV file. The project includes a backend developed with Django and the Django REST Framework.
 
-## Pré-requisitos
+## Prerequisites
 
-Certifique-se de ter o seguinte instalado em sua máquina:
+Make sure you have the following installed on your machine:
 
 - Docker
 - Docker Compose
-- Make (opcional, mas recomendado)
+- Make (optional, but recommended)
 
-## Configuração do Ambiente
+## Environment Setup
 
-### 1. Clone o repositório
+### 1. Clone the repository
 
 ```bash
 git clone <URL_DO_REPOSITORIO>
 cd book-search
 ```
-#### 1.1 Se for a primeira vez que estiver usando, execute primeiro o script:
+#### 1.1 If this is your first time using it, run the script first:
 ```
     $ make migrate
     $ make up
 ```
-Entre na maquina docker gerada e execute o comando de criar superusuário.
+Enter the generated docker machine and run the create superuser command.
 ```
     $ docker exec -ti book-search-web-1 bash
     $ python src/manage.py createsuperuser
 ```
-Com o email e senha inseridos entre no sistema de admin:
+With the email and password entered, enter the admin system:
 [Admin](http://localhost:8000/admin/)
 
-Lá você terá acesso a criação de usuários, inserção e edição de livros manualmente.
+There you will have access to create users, insert and edit books manually.
 
-Você pode criar novos usuários também via URL:
+You can also create new users via URL:
 ```
 curl --location 'http://localhost:8000/api/register/' \
 --header 'Content-Type: application/json' \
@@ -50,11 +50,11 @@ curl --location 'http://localhost:8000/api/register/' \
 }'
 
 ```
-### Para executar você pode rodar
+### To run
 ```
 $ make up
 ```
-### Para executar os testes
+### To run the tests
 ```
 $ make test
 ```
@@ -63,8 +63,8 @@ $ make test
 $ make help
 ```
 
-## Para usar
-### Pegar as informações de token
+## To use
+### Get token information
 ```
 curl --location 'http://localhost:8000/api/token/' \
 --header 'Content-Type: application/json' \
@@ -78,30 +78,30 @@ curl --location 'http://localhost:8000/api/token/' \
 }
 ```
 
-### Processamento de CSV em massa
-#### Enviar o CSV
-Para fazer um envio em massa você acessa o endpoint para enviar o csv
+### Bulk CSV Processing
+#### Send CSV
+To make a mass sending you access the endpoint to send the csv
 ```
 curl --location 'http://localhost:8000/api/csv/upload/' \
 --header 'Content-Type: application/json' \
 --data '{"csv_file": "data_csv" }
 ```
-O formato do CSV_FILE deve ser base64. O arquivo CSV deve ser convertido a Base64. 
+The CSV_FILE format must be base64. The CSV file must be converted to Base64.
 
-É preciso cadastrar em variavel de ambiente também as variáveis:
-SENDGRID_API_KEY = 'A variável da Key do Sendgrid'
-SENDGRID_EMAIL = 'Email para qual será enviado o email'
+You must also register the following variables in the environment variable:
+SENDGRID_API_KEY = 'The Sendgrid Key variable'
+SENDGRID_EMAIL = 'Email to which the email will be sent'
 
-### Fazer busca na API
-#### Fazer a busca de elementos já cadastrados
-Para fazer a busca de elementos dentro do sistema é possível fazer com o seguinte request:
+### Search the API
+#### Search for elements already registered
+To search for elements within the system, you can do so using the following request:
 ```
 curl --location 'http://localhost:8000/api/books/?isbn=141439661' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIzMzk5OTg0LCJpYXQiOjE3MjMzOTk2ODQsImp0aSI6ImE1YWQzZDY1ZjAzZDRmYTg5ZGI2YWRiMDZjOGI3YWQ5IiwidXNlcl9pZCI6MX0.AuRh-NXR8QUqN_LShtevnLQmkXOOy_75hKcz2rjF1ZU' \
 --data ''
 ```
-Os seguintes campos são possíveis de serem buscados: Title, Authors and ISBN
+The following fields are searchable: Title, Authors and ISBN
 ```
 curl --location 'http://localhost:8000/api/books/?title=Harry%20Potter' \
 --header 'Content-Type: application/json' \
